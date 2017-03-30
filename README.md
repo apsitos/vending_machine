@@ -30,13 +30,18 @@ I've given you some default state for both Person and VendingMachine, but don't 
   * Name
   * Price
 
-Think about you want to store treats in the vending machine. How does a real vending machine do it? What would be the best data structure to accurately model reality?
+Think about how you want to store treats in the vending machine. How does a real vending machine do it? What would be the best data structure to accurately model reality?
 
 ### Level 4
 * Add to your test suite that tests the following scenarios:
+* A person inserts 100 credits ($1.00) and selects a specific treat that costs less than 100 credits.
+* A person inserts 50 credits ($0.50) and selects a specific treat that costs more than 50 credits.
+* A person inserts 200 credits ($2.00) and selects a specific treat that costs less than 100 credits. Same person selects another specific treat that costs less than 100 credits
+* There should also be a unit test for every VendingMachine method.
 
 ### Level 5
-* Create a git hook at the commit-msg hook to check that all commit messages include 'Level x', where x is the level number you working on.
-
-### Level 6
 * Create a DOM representation of the vending machine to visualize the vending process.
+
+You will need the ability to input credits to the machine and input a selection.
+
+You will want to use flexbox to display all of the treats in the machine, but other than that you can build it any way you wish (React, Vue, jQuery, vanilla...)
