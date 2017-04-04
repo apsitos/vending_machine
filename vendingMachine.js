@@ -15,3 +15,14 @@ export default class VendingMachine {
     this.constructor()
   }
 }
+
+VendingMachine.prototype.insertCredit = function () {
+  this.state.credits+=100
+  this.state.status = 'credited'
+  if(!this.state.selection) {
+    this.state.change = 0
+  } else {
+    VendingMachine.giveChange()
+  }
+
+}
