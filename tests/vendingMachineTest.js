@@ -14,19 +14,52 @@ describe('Vending Machine', function() {
     vendingMachine.reset();
   });
 
-  it('should take a users credits and check for change', () => {
+  it('should check to see if the machine is on', () => {
     // Assert the current status of the vendingMachine is idle
     assert.equal(vendingMachine.state.status, 'idle')
+  })
 
+  it('should take a users credits and check for change', () => {
     // Alex inserts a dollar into the vending machine
     vendingMachine.insertCredit(alex, 100)
-
     // Assert the current status of the vendingMachine is 'credited' after credits inserted
     assert.equal(vendingMachine.state.status, 'credited')
     // Assert the total number of credits is 100 cents ($1.00) after credits inserted
     assert.equal(vendingMachine.state.credits, 100)
     // Assert the total number of change is 0 cents ($0.00) before selection is made
     assert.equal(vendingMachine.state.change, 0)
+  });
+
+  it('should verify that the credits inserted are enough to pay for the treat', () => {
+    vendingMachine.insertCredit(alex, 100)
+    assert.equal(vendingMachine.state.credits, 100)
+    assert.equal(vendingMachine.state.price, 75)
+    assert.equal(vendingMachine.state.change, 0)
+    vendingMachine.checkPrice()
+    assert.equal(vendingMachine.state.msg, 'Change')
+  });
+
+  it('should return a message if the credits are not enough', () => {
+    vendingMachine.insertCredit(alex, 50)
+    assert.equal(vendingMachine.state.credits, 50)
+    assert.equal(vendingMachine.state.price, 75)
+    vendingMachine.checkPrice()
+    assert.equal(vendingMachine.state.msg, 'Please add more credits')
+  })
+
+  it('should check the selection entered exists', () => {
+    assert.equal(vendingMachine.checkSelection('A1'), true)
+  });
+
+  it('should make sure there are enough treats', () => {
+    assert.isAbove(vendingMachine.state.selection.A1.length, 0)
+  });
+
+  it.skip('should dispense any change needed', () => {
+
+    vendingMachine.checkPrice()
+    assert.equal(vendingMachine.state.change, 25)
+    assert.equal(vendingMachine.state.msg, 'Change')
   });
 
 });

@@ -5,9 +5,13 @@ export default class Person {
       credits: 500
     }
   }
+  // 
+  // buyTreat = function() {
+  //   console.log('people');
+  // }
+  //
+  // makeSelection = function() {
+  //   vendingMachine.state.selection = A1;
+  // }
 
-}
-
-Person.prototype.buyTreat = function () {
-  console.log('people');
-}
+};

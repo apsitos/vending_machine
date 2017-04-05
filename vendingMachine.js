@@ -1,3 +1,4 @@
+
 export default class VendingMachine {
   constructor() {
     // status can be ["idle", "credited", "vending"]
@@ -5,24 +6,46 @@ export default class VendingMachine {
       status: "idle",
       credits: 0,
       change: 0,
-      selection: null,
+      selection: {
+        A1: [1,1,1,1,1,1,1,1,1,1],
+        A2: [1,1,1,1,1,1,1,1,1,1],
+        A3: [1,1,1,1,1,1,1,1,1,1],
+        B1: [1,1,1,1,1,1,1,1,1,1],
+        B2: [1,1,1,1,1,1,1,1,1,1],
+        B3: [1,1,1,1,1,1,1,1,1,1],
+        C1: [1,1,1,1,1,1,1,1,1,1],
+        C2: [1,1,1,1,1,1,1,1,1,1],
+        C3: [1,1,1,1,1,1,1,1,1,1]
+      },
+      price: 75,
       qty: 0,
-      msg: null
-    }
+      msg: ''
+    };
+  };
+
+  insertCredit(user, credit) {
+    this.state.credits = credit;
+    this.state.status = 'credited'
+  };
+
+  checkSelection(choice) {
+    return Object.keys(this.state.selection).find(choice => choice = 'A1')? true : false
+  };
+
+  checkQuantity(choice) {
+    
   }
+
+  checkPrice() {
+    if(this.state.credits >= this.state.price) {
+      this.state.change = this.state.credits - this.state.price;
+      this.state.msg = 'Change'
+    } else {
+      this.state.msg = 'Please add more credits'
+    };
+  };
 
   reset() {
     this.constructor()
-  }
-}
-
-VendingMachine.prototype.insertCredit = function () {
-  this.state.credits+=100
-  this.state.status = 'credited'
-  if(!this.state.selection) {
-    this.state.change = 0
-  } else {
-    VendingMachine.giveChange()
-  }
-
+  };
 }
