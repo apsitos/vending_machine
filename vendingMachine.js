@@ -50,7 +50,13 @@ export default class VendingMachine {
 
   vend(choice) {
     this.state.selection[choice].shift()
-  }
+  };
+
+  giveChange() {
+    if (this.state.change) {
+      person.receiveChange(this.state.change)
+    }
+  };
 
   reset() {
     this.constructor()

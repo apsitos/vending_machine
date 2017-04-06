@@ -64,11 +64,16 @@ describe('Vending Machine', function() {
 
   it('should dispense any change needed', () => {
     vendingMachine.insertCredit(alex, 100)
+    alex.insertMoney(100)
     assert.equal(vendingMachine.state.credits, 100)
+    assert.equal(alex.state.credits, 400)
     assert.equal(vendingMachine.state.price, 75)
     vendingMachine.checkPrice()
     assert.equal(vendingMachine.state.change, 25)
     assert.equal(vendingMachine.state.msg, 'Change')
+    vendingMachine.giveChange(vendingMachine.state.change)
+    alex.receiveChange(25)
+    assert.equal(alex.state.credits, 425)
     vendingMachine.reset()
     assert.equal(vendingMachine.state.change, 0)
   });
