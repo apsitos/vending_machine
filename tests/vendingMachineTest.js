@@ -52,14 +52,25 @@ describe('Vending Machine', function() {
   });
 
   it('should make sure there are enough treats', () => {
-    assert.isAbove(vendingMachine.state.selection.A1.length, 0)
+    vendingMachine.checkQuantity()
+    assert.deepEqual(vendingMachine.state.selection.A1, [1,1,1,1,1,1,1,1,1,1])
   });
 
-  it.skip('should dispense any change needed', () => {
+  it('should vend the selected treat', () => {
+    assert.deepEqual(vendingMachine.state.selection.A1, [1,1,1,1,1,1,1,1,1,1])
+    vendingMachine.vend('A1')
+    assert.deepEqual(vendingMachine.state.selection.A1, [1,1,1,1,1,1,1,1,1])
+  })
 
+  it('should dispense any change needed', () => {
+    vendingMachine.insertCredit(alex, 100)
+    assert.equal(vendingMachine.state.credits, 100)
+    assert.equal(vendingMachine.state.price, 75)
     vendingMachine.checkPrice()
     assert.equal(vendingMachine.state.change, 25)
     assert.equal(vendingMachine.state.msg, 'Change')
+    vendingMachine.reset()
+    assert.equal(vendingMachine.state.change, 0)
   });
 
 });

@@ -1,3 +1,5 @@
+const Person = require('./person').default
+const person = new Person()
 
 export default class VendingMachine {
   constructor() {
@@ -24,6 +26,7 @@ export default class VendingMachine {
   };
 
   insertCredit(user, credit) {
+    person.insertMoney(credit)
     this.state.credits = credit;
     this.state.status = 'credited'
   };
@@ -33,8 +36,8 @@ export default class VendingMachine {
   };
 
   checkQuantity(choice) {
-    
-  }
+    this.state.selection[choice]
+  };
 
   checkPrice() {
     if(this.state.credits >= this.state.price) {
@@ -44,6 +47,10 @@ export default class VendingMachine {
       this.state.msg = 'Please add more credits'
     };
   };
+
+  vend(choice) {
+    this.state.selection[choice].shift()
+  }
 
   reset() {
     this.constructor()
